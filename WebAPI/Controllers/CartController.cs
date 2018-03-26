@@ -15,5 +15,12 @@ namespace WebAPI.Controllers
         {
             return "value";
         }
+        
+        // GET api/cart/total
+        [HttpGet("sayHello")]
+        public string SayHello()
+        {
+            return "hello";
+        }
     }
 }
