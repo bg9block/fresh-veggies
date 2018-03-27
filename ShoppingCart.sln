@@ -1,6 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{90B3D853-9C4B-44B6-9EA2-F8CC2BFC6F85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Services", "ShoppingCart.Services\ShoppingCart.Services.csproj", "{A17D7A47-0006-4D07-A93D-3CFF17A34A9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Models", "ShoppingCart.Models\ShoppingCart.Models.csproj", "{B85F06A5-5250-459B-915C-382841E23B9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Data", "ShoppingCart.Data\ShoppingCart.Data.csproj", "{DCAE621F-6D8B-4496-B38F-BA5D23C862F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.API", "ShoppingCart.API\ShoppingCart.API.csproj", "{17C0C9B7-65B1-4FF5-BB6C-759D08BE6296}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{1536CBEC-E29F-4C9D-919C-0505E430F625}"
+ProjectSection(SolutionItems) = preProject
+	Dockerfile = Dockerfile
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +19,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90B3D853-9C4B-44B6-9EA2-F8CC2BFC6F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90B3D853-9C4B-44B6-9EA2-F8CC2BFC6F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90B3D853-9C4B-44B6-9EA2-F8CC2BFC6F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90B3D853-9C4B-44B6-9EA2-F8CC2BFC6F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17D7A47-0006-4D07-A93D-3CFF17A34A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17D7A47-0006-4D07-A93D-3CFF17A34A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17D7A47-0006-4D07-A93D-3CFF17A34A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17D7A47-0006-4D07-A93D-3CFF17A34A9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B85F06A5-5250-459B-915C-382841E23B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B85F06A5-5250-459B-915C-382841E23B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B85F06A5-5250-459B-915C-382841E23B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B85F06A5-5250-459B-915C-382841E23B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCAE621F-6D8B-4496-B38F-BA5D23C862F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCAE621F-6D8B-4496-B38F-BA5D23C862F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCAE621F-6D8B-4496-B38F-BA5D23C862F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCAE621F-6D8B-4496-B38F-BA5D23C862F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17C0C9B7-65B1-4FF5-BB6C-759D08BE6296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17C0C9B7-65B1-4FF5-BB6C-759D08BE6296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17C0C9B7-65B1-4FF5-BB6C-759D08BE6296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17C0C9B7-65B1-4FF5-BB6C-759D08BE6296}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{17C0C9B7-65B1-4FF5-BB6C-759D08BE6296} = {1536CBEC-E29F-4C9D-919C-0505E430F625}
+		{DCAE621F-6D8B-4496-B38F-BA5D23C862F7} = {1536CBEC-E29F-4C9D-919C-0505E430F625}
+		{B85F06A5-5250-459B-915C-382841E23B9D} = {1536CBEC-E29F-4C9D-919C-0505E430F625}
+		{A17D7A47-0006-4D07-A93D-3CFF17A34A9C} = {1536CBEC-E29F-4C9D-919C-0505E430F625}
 	EndGlobalSection
 EndGlobal

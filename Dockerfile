@@ -32,4 +32,4 @@ WORKDIR /app
 RUN echo "(aspnetcore) Contents of /app:" && ls -l
 
 # Set the command to run and it's args when connecting to container
-ENTRYPOINT [ "dotnet", "WebAPI.dll" ]
+ENTRYPOINT [ "dotnet", "ShoppingCart.API.dll" ]
