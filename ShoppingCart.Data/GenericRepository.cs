@@ -9,11 +9,16 @@ namespace ShoppingCart.Data
 {   
     public abstract class GenericRepository<TContext, TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity where TContext : DbContext, new() {
 
-        private TContext _entities = new TContext();
-        public TContext Context {
+        private TContext _entities;
+        public TContext Context {    
 
             get { return _entities; }
             set { _entities = value; }
+        }
+
+        protected GenericRepository(TContext context)
+        {
+            _entities = context;
         }
 
         public virtual IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate) {

@@ -9,6 +9,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
   </ItemGroup>
@@ -19,5 +20,12 @@
     <ProjectReference Include="..\ShoppingCart.Data\ShoppingCart.Data.csproj" />
     <ProjectReference Include="..\ShoppingCart.Models\ShoppingCart.Models.csproj" />
     <ProjectReference Include="..\ShoppingCart.Services\ShoppingCart.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="output5\web.config" />
+    <_ContentIncludedByDefault Remove="output5\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="output5\appsettings.json" />
+    <_ContentIncludedByDefault Remove="output5\ShoppingCart.API.deps.json" />
+    <_ContentIncludedByDefault Remove="output5\ShoppingCart.API.runtimeconfig.json" />
   </ItemGroup>
 </Project>

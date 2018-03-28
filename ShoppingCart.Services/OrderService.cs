@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ShoppingCart.Data;
 using ShoppingCart.Data.Interfaces;
@@ -20,16 +21,16 @@ namespace ShoppingCart.Services
             _voucherService = voucherService;
         }
 
-        public int GetTotalPriceFor(Order order)
+        public double GetTotalPriceFor(Order order)
         {
             var products = _productService.GetAll(pr => order.OrderProducts.Any(op => op.ProductId.Equals(pr.Id))).ToList();
             
             var total = order.VoucherIds.Any() ? CalculateWithVouchers(order, products) : CalculateWithoutVouchers(products);
 
-            return total;
+            return Math.Round(total, 2);
         }
         
-        private int CalculateWithVouchers(Order order, IEnumerable<Product> products)
+        private double CalculateWithVouchers(Order order, IEnumerable<Product> products)
         {
             var total = CalculateWithoutVouchers(products);
 
@@ -56,12 +57,12 @@ namespace ShoppingCart.Services
             return total;
         }
 
-        private int CalculateWithoutVouchers(IEnumerable<Product> products)
+        private double CalculateWithoutVouchers(IEnumerable<Product> products)
         {
-            return products.Aggregate(0, (sum, next) => sum + next.Price);
+            return products.Aggregate(0.00, (sum, next) => (double) sum + next.Price);
         }
 
-        private int ApplyVoucher(Voucher voucher, int total)
+        private double ApplyVoucher(Voucher voucher, double total)
         {
             return voucher.DiscountAmount > total || voucher.DiscountPercentage > 100? 
                 0:

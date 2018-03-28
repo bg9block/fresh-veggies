@@ -7,6 +7,8 @@ namespace ShoppingCart.Data
 {
     public class OrderRepository: GenericRepository<OrderContext, Order>, IOrderRepository
     {
-        
+        public OrderRepository(OrderContext context) : base(context)
+        {
+        }
     }
 }

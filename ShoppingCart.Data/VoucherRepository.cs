@@ -8,6 +8,8 @@ namespace ShoppingCart.Data
 {
     public class VoucherRepository: GenericRepository<VoucherContext, Voucher>, IVoucherRepository
     {
-        
+        public VoucherRepository(VoucherContext context) : base(context)
+        {
+        }
     }
 }

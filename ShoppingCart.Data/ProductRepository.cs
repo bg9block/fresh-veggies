@@ -8,6 +8,8 @@ namespace ShoppingCart.Data
 {
     public class ProductRepository: GenericRepository<ProductContext, Product>, IProductRepository
     {
-        
+        public ProductRepository(ProductContext context) : base(context)
+        {
+        }
     }
 }

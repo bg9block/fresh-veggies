@@ -21,12 +21,12 @@ namespace ShoppingCart.API.Controllers
         }
         
         // GET api/cart/totalPrice
-        [HttpGet("total")]
+        [HttpGet("totalPrice")]
         public ActionResult GetTotalFor(OrderModel orderModel)
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestResult();
+                return new BadRequestObjectResult(ModelState);
             }
 
             var order = _mapper.Map<Order>(orderModel);

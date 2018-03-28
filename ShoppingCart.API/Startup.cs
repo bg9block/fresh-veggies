@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ShoppingCart.Data;
 using ShoppingCart.Data.Context;
 using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
 using ShoppingCart.Services;
 using ShoppingCart.Services.Interfaces;
 
@@ -22,15 +21,20 @@ namespace ShoppingCart.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
             
             services.AddScoped(typeof(IProductService), typeof(ProductService));
             services.AddScoped(typeof(IVoucherService), typeof(VoucherService));
             services.AddScoped(typeof(IOrderService), typeof(OrderService));
-            
-            ConfigureRepository(services);
+
+            services.AddDbContext<ProductContext>();
+            services.AddDbContext<ProductContext>();
+            services.AddDbContext<ProductContext>();
+            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            services.AddScoped(typeof(IVoucherRepository), typeof(VoucherRepository));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             
             services.AddMvc();
             
@@ -46,12 +50,7 @@ namespace ShoppingCart.API
 
             app.UseMvc();
         }
-
-        public void ConfigureRepository(IServiceCollection services)
-        {
-            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
-            services.AddScoped(typeof(IVoucherRepository), typeof(VoucherRepository));
-            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
-        }
+        
+        
     }
 }

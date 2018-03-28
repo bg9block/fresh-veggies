@@ -9,6 +9,8 @@ namespace ShoppingCart.Models
         
         public VoucherType Type { get; set; }
         
+        public ProductCategory? OfferProductCategory { get; set; }
+        
         public string Name { get; set; }
         
         public int DiscountPercentage { get; set; }

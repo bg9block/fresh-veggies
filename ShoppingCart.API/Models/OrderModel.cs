@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using ShoppingCart.API.Validation;
 using ShoppingCart.Models;
+using ShoppingCart.Models.Enums;
 using ShoppingCart.Services.Interfaces;
 
 namespace ShoppingCart.API.Models
@@ -12,57 +13,61 @@ namespace ShoppingCart.API.Models
     public class OrderModel: IValidatableObject
     {
         [Required]
-        [EnsureMinimumElements(1, "Products_Are_Empty")]
+        [EnsureMinimumElements(1, "Order should have at least one product")]
         public IEnumerable<OrderProductModel> Products { get; set; }
         
         [Required]
         public IEnumerable<Guid> VoucherIds { get; set; }
 
-
+        //if DataAnnotations validation passes, this is executed
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new List<ValidationResult>();
+            var memberNames = new string[] {validationContext.MemberName};
             
             var order = (OrderModel) validationContext.ObjectInstance;
 
+            var vouchers = new List<Voucher>();
+            
             if (order.VoucherIds != null && order.VoucherIds.Any())
             {
                 var voucherService = (IVoucherService) validationContext.GetService(typeof(IVoucherService));
-                var actualVouchersIds =
-                    voucherService
+                var actualVouchers = voucherService
                         .GetAll(v => order.VoucherIds.Contains(v.Id))
-                        .Select(v => v.Id)
                         .ToList();
                 
-                
-                var invalidVoucherIds = (IList<Guid>) order.VoucherIds.Except(actualVouchersIds);
+                var invalidVoucherIds = (IList<Guid>) order.VoucherIds.Except(actualVouchers.Select(v => v.Id));
                 if (invalidVoucherIds.Any())
                 {
-                    validationResults.Add(new ValidationResult("Invalid_Voucher_Id", invalidVoucherIds.Select(guid => guid.ToString())));
-                }
-            }
-
-            if (order.Products != null)
-            {
-                if (order.Products.Any())
-                {
-                    var productService = (IProductService) validationContext.GetService(typeof(IProductService));
-                    var actualProductIds =
-                        productService
-                            .GetAll(p => order.Products.Any(op => op.ProductId.Equals(p.Id)))
-                            .Select(p => p.Id)
-                            .ToList();
-
-                    var invalidProductIds = order.Products.AsQueryable().Select(op => op.ProductId).Except(actualProductIds).ToList();
-                    if (invalidProductIds.Any())
-                    {
-                        validationResults.Add(new ValidationResult("Invalid_Product_Id",
-                            invalidProductIds.Select(guid => guid.ToString())));
-                    }
+                    validationResults.Add(new ValidationResult(
+                        $"Invalid VoucherIds: {invalidVoucherIds.Aggregate("", (reducer, next) => next.ToString() + ", " + reducer)}"));
                 }
                 else
                 {
-                    validationResults.Add(new ValidationResult("Products_Are_Empty"));
+                    vouchers = actualVouchers;
+                }
+            }
+            
+            if (order.Products != null && order.Products.Any())
+            {
+                var productService = (IProductService) validationContext.GetService(typeof(IProductService));
+                var actualProductIds =
+                    productService
+                        .GetAll(p => order.Products.Any(op => op.ProductId.Equals(p.Id)))
+                        .Select(p => p.Id)
+                        .ToList();
+
+                var invalidProductIds = order.Products.AsQueryable().Select(op => op.ProductId).Except(actualProductIds).ToList();
+                if (invalidProductIds.Any())
+                {
+                    validationResults.Add(new ValidationResult("Invalid_Product_Id",
+                        invalidProductIds.Select(guid => guid.ToString())));
+                }
+                
+                //Check basket contains
+                if (vouchers.Any())
+                {
+                    var offerVoucher = vouchers.FirstOrDefault(v => v.Type.Equals(VoucherType.Offer));
                 }
             }
 
