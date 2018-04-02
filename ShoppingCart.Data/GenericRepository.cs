@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Data.Interfaces;
 using ShoppingCart.Models;
@@ -46,6 +47,10 @@ namespace ShoppingCart.Data
 
         public virtual void Save() {
             _entities.SaveChanges();
+        }
+        
+        public virtual async Task SaveAsync() {
+            await _entities.SaveChangesAsync();
         }
     }
 }

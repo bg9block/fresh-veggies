@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -20,24 +20,21 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
 {
     public class GetTotalPrice
     {
-        private readonly TestServer _server;
+        private string EndpointUrl = "api/cart/totalPrice";
         private readonly HttpClient _client;
         
         public GetTotalPrice()
         {
-            var webHostBuilder = new WebHostBuilder();
-            webHostBuilder.UseStartup<Startup>();
-            _server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
-            _client = _server.CreateClient();
+            var server = TestHelper.GetTestServer();
+            _client = server.CreateClient();
         }
         
         [Fact]
         public async Task ReturnsOk_ForBasketWithGiftAmountVoucher()
         {
             //Arrange
-            var product1 =     new Product() { Id = Guid.NewGuid(), Name = "Hat", Price = 10.50, Category = ProductCategory.Clothes};
-            var product2 =     new Product() { Id = Guid.NewGuid(), Name = "Jumper", Price = 54.65, Category = ProductCategory.Clothes };
+            var product1 =     new Product() { Id = Guid.NewGuid(), Name = "Hat", Price = 10.50M, Category = ProductCategory.Clothes};
+            var product2 =     new Product() { Id = Guid.NewGuid(), Name = "Jumper", Price = 54.65M, Category = ProductCategory.Clothes };
             var giftVoucher =  new Voucher() { Id = Guid.NewGuid(), Name = "YYY-YYY", DiscountAmount = 5, Type = VoucherType.Gift};
             var orderModel =   new OrderModel()
             {
@@ -48,19 +45,20 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
                 },
                 VoucherIds = new List<Guid>() { giftVoucher.Id }
             };
-            var expectedTotalPrice = 60.15;
+            var expectedTotalPrice = 60.15M;
             
             try
             {
-                SeedDb(new List<Product> {product1, product2}, new List<Voucher>{giftVoucher});
+                await SeedDb(new List<Product> {product1, product2}, new List<Voucher>{giftVoucher});
 
                 //Act
-                var response = await _client.PostAsync("/api/cart/priceTotal", new StringContent(JsonConvert.SerializeObject(orderModel)));
+                var response = await _client.PostAsync(EndpointUrl, 
+                    new StringContent(JsonConvert.SerializeObject(orderModel), Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
                 
                 //Assert
-                Assert.True(double.TryParse(responseString, out var actualTotalPrice));
+                Assert.True(decimal.TryParse(responseString, out var actualTotalPrice));
                 Assert.Equal(expectedTotalPrice, actualTotalPrice);
             }
             finally
@@ -74,8 +72,8 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
         public async Task ReturnsMessage_ForTwoClothesAndHeadGearOfferVoucher()
         {
             //Arrange
-            var product1 = new Product() { Id = Guid.NewGuid(), Name = "Hat", Price = 25.00, Category = ProductCategory.Clothes };
-            var product2 = new Product() { Id = Guid.NewGuid(), Name = "Jumper", Price = 26.00, Category = ProductCategory.Clothes };
+            var product1 = new Product() { Id = Guid.NewGuid(), Name = "Hat", Price = 25.00M, Category = ProductCategory.Clothes };
+            var product2 = new Product() { Id = Guid.NewGuid(), Name = "Jumper", Price = 26.00M, Category = ProductCategory.Clothes };
             var offerVoucher = new Voucher() 
                 { Id = Guid.NewGuid(), Name = "YYY-YYY", DiscountAmount = 5, Type = VoucherType.Offer, Threshhold = 50, 
                     OfferProductCategory = ProductCategory.HeadGear };
@@ -88,20 +86,19 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
                 },
                 VoucherIds = new List<Guid>() {offerVoucher.Id}
             };
-            var expectedTotalPrice = 60.15;
 
             try
             {
-                SeedDb(new List<Product> {product1, product2}, new List<Voucher>{offerVoucher});
+                await SeedDb(new List<Product> {product1, product2}, new List<Voucher>{offerVoucher});
 
                 //Act
-                var response = await _client.PostAsync("/api/cart/priceTotal",
-                    new StringContent(JsonConvert.SerializeObject(orderModel)));
+                var response = await _client.PostAsync(EndpointUrl,
+                    new StringContent(JsonConvert.SerializeObject(orderModel), Encoding.UTF8, "application/json"));
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 //TODO: ASSERT INCOMING MESSAGE
-                //Assert
-                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
                 
             }
             finally
@@ -114,9 +111,9 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
         public async Task ReturnsOk_ForThreeProductsWithHeadGearOfferVoucher()
         {
             //Arrange
-            var product1 =     new Product() { Id = Guid.NewGuid(), Name = "Hat", Price = 25, Category = ProductCategory.Clothes};
-            var product2 =     new Product() { Id = Guid.NewGuid(), Name = "Jumper", Price = 26, Category = ProductCategory.Clothes };
-            var product3 =     new Product() { Id = Guid.NewGuid(), Name = "Head Light", Price = 3.50, Category = ProductCategory.HeadGear };
+            var product1 =     new Product() { Id = Guid.NewGuid(), Name = "Hat", Price = 25.00M, Category = ProductCategory.Clothes};
+            var product2 =     new Product() { Id = Guid.NewGuid(), Name = "Jumper", Price = 26.00M, Category = ProductCategory.Clothes };
+            var product3 =     new Product() { Id = Guid.NewGuid(), Name = "Head Light", Price = 3.50M, Category = ProductCategory.HeadGear };
             var offerVoucher =  new Voucher() 
                             { Id = Guid.NewGuid(), Name = "YYY-YYY", DiscountAmount = 5, Threshhold = 50, 
                                 OfferProductCategory = ProductCategory.HeadGear, Type = VoucherType.Offer};
@@ -130,20 +127,20 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
                 },
                 VoucherIds = new List<Guid>() { offerVoucher.Id }
             };
-            var expectedTotalPrice = 51;
+            var expectedTotalPrice = 51.00M;
             
             try
             {
-                SeedDb(new List<Product> {product1, product2, product3}, new List<Voucher>{offerVoucher});
+                await SeedDb(new List<Product> {product1, product2, product3}, new List<Voucher>{offerVoucher});
 
                 //Act
-                var response = await _client.PostAsync("/api/cart/priceTotal",
-                    new StringContent(JsonConvert.SerializeObject(orderModel)));
+                var response = await _client.PostAsync(EndpointUrl,
+                    new StringContent(JsonConvert.SerializeObject(orderModel), Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 //Assert
-                Assert.True(double.TryParse(responseString, out var actualTotalPrice));
+                Assert.True(decimal.TryParse(responseString, out var actualTotalPrice));
                 Assert.Equal(expectedTotalPrice, actualTotalPrice);
             }
             finally
@@ -170,20 +167,20 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
                 },
                 VoucherIds = new List<Guid>() { offerVoucher.Id, giftVoucher.Id}
             };
-            var expectedTotalPrice = 51;
+            var expectedTotalPrice = 51.00M;
             
             try
             {
-                SeedDb(new List<Product> {product1, product2}, new List<Voucher>{offerVoucher, giftVoucher});
+                await SeedDb(new List<Product> {product1, product2}, new List<Voucher>{offerVoucher, giftVoucher});
 
                 //Act
-                var response = await _client.PostAsync("/api/cart/priceTotal",
-                    new StringContent(JsonConvert.SerializeObject(orderModel)));
+                var response = await _client.PostAsync(EndpointUrl,
+                    new StringContent(JsonConvert.SerializeObject(orderModel), Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 //Assert
-                Assert.True(double.TryParse(responseString, out var actualTotalPrice));
+                Assert.True(decimal.TryParse(responseString, out var actualTotalPrice));
                 Assert.Equal(expectedTotalPrice, actualTotalPrice);
             }
             finally
@@ -193,7 +190,7 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
             }
         }
 
-        private void SeedDb(List<Product> products, List<Voucher> vouchers)
+        private async Task SeedDb(List<Product> products, List<Voucher> vouchers)
         {
             // In-memory database only exists while the connection is open
             Env.TestDbConnection.Open();
@@ -207,7 +204,7 @@ namespace ShoppingCart.API.Tests.Controllers.CartController
                 context.Database.EnsureCreated();
                 context.Products.AddRange(products);
                 context.Vouchers.AddRange(vouchers);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
     }

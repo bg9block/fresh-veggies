@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using ShoppingCart.Models;
 
 namespace ShoppingCart.Data.Interfaces
@@ -13,5 +14,6 @@ namespace ShoppingCart.Data.Interfaces
         void Delete(TEntity entity);
         void Edit(TEntity entity);
         void Save();
+        Task SaveAsync();
     }
 }

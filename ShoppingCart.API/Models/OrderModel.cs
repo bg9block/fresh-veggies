@@ -18,6 +18,8 @@ namespace ShoppingCart.API.Models
         
         [Required]
         public IEnumerable<Guid> VoucherIds { get; set; }
+        
+        public IEnumerable<Voucher> Vouchers { get; set; }
 
         //if DataAnnotations validation passes, this is executed
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -36,11 +38,11 @@ namespace ShoppingCart.API.Models
                         .GetAll(v => order.VoucherIds.Contains(v.Id))
                         .ToList();
                 
-                var invalidVoucherIds = (IList<Guid>) order.VoucherIds.Except(actualVouchers.Select(v => v.Id));
+                var invalidVoucherIds = order.VoucherIds.Except(actualVouchers.Select(v => v.Id)).ToList();
                 if (invalidVoucherIds.Any())
                 {
                     validationResults.Add(new ValidationResult(
-                        $"Invalid VoucherIds: {invalidVoucherIds.Aggregate("", (reducer, next) => next.ToString() + ", " + reducer)}"));
+                        $"Invalid VoucherIds: {invalidVoucherIds.Aggregate("", (reducer, next) => next.ToString() + ", " + reducer)}", new List<string>(){"OrderModel.VoucherIds"}));
                 }
                 else
                 {
@@ -51,8 +53,7 @@ namespace ShoppingCart.API.Models
             if (order.Products != null && order.Products.Any())
             {
                 var productService = (IProductService) validationContext.GetService(typeof(IProductService));
-                var actualProductIds =
-                    productService
+                var actualProductIds = productService
                         .GetAll(p => order.Products.Any(op => op.ProductId.Equals(p.Id)))
                         .Select(p => p.Id)
                         .ToList();
@@ -60,8 +61,7 @@ namespace ShoppingCart.API.Models
                 var invalidProductIds = order.Products.AsQueryable().Select(op => op.ProductId).Except(actualProductIds).ToList();
                 if (invalidProductIds.Any())
                 {
-                    validationResults.Add(new ValidationResult("Invalid_Product_Id",
-                        invalidProductIds.Select(guid => guid.ToString())));
+                    validationResults.Add(new ValidationResult($"Invalid Product Ids: {invalidProductIds.Aggregate("", (reducer, next) => next.ToString() + ", " + reducer)}", new List<string>(){"OrderModel.Products"}));
                 }
                 
                 //Check basket contains

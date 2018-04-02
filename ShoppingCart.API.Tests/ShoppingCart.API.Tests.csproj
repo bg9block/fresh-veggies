@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShoppingCart.API\ShoppingCart.API.csproj" />
+    <ProjectReference Include="..\ShoppingCart.Common\ShoppingCart.Common.csproj" />
     <ProjectReference Include="..\ShoppingCart.Data\ShoppingCart.Data.csproj" />
     <ProjectReference Include="..\ShoppingCart.Models\ShoppingCart.Models.csproj" />
     <ProjectReference Include="..\ShoppingCart.Services\ShoppingCart.Services.csproj" />

@@ -1,5 +1,4 @@
 ﻿
-using System.Data.Entity;
 using ShoppingCart.Data.Context;
 using ShoppingCart.Data.Interfaces;
 using ShoppingCart.Models;

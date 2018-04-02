@@ -7,7 +7,8 @@
     <ProjectReference Include="..\ShoppingCart.Models\ShoppingCart.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0-preview1-final" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.0-preview1-26216-02" />
   </ItemGroup>

@@ -21,23 +21,23 @@ namespace ShoppingCart.Services
             _voucherService = voucherService;
         }
 
-        public double GetTotalPriceFor(Order order)
+        public decimal GetTotalPriceFor(Order order)
         {
-            var products = _productService.GetAll(pr => order.OrderProducts.Any(op => op.ProductId.Equals(pr.Id))).ToList();
+            var products = _productService.GetAll(pr => order.Products.Any(op => op.ProductId.Equals(pr.Id))).ToList();
             
-            var total = order.VoucherIds.Any() ? CalculateWithVouchers(order, products) : CalculateWithoutVouchers(products);
+            var total = order.Vouchers.Any() ? CalculateWithVouchers(order, products) : CalculateWithoutVouchers(products);
 
-            return Math.Round(total, 2);
+            return Math.Round(total, 2, MidpointRounding.AwayFromZero);
         }
         
-        private double CalculateWithVouchers(Order order, IEnumerable<Product> products)
+        private decimal CalculateWithVouchers(Order order, IEnumerable<Product> products)
         {
             var total = CalculateWithoutVouchers(products);
 
-            
-            var vouchers = _voucherService.GetAll(v => order.VoucherIds.Contains(v.Id)).ToList();
+            var vouchers = _voucherService.GetAll(v => order.Vouchers.Any(ov => ov.Id.Equals(v.Id))).ToList();
             var giftVouchers = vouchers.Where(v => v.Type.Equals(VoucherType.Gift)).ToList();
             var offerVoucher = vouchers.FirstOrDefault(v => v.Type.Equals(VoucherType.Offer));
+            if (!products.Any(p => p.Category.Equals(offerVoucher.OfferProductCategory)))
 
             if (offerVoucher != null && total > offerVoucher.Threshhold)
             {
@@ -57,12 +57,12 @@ namespace ShoppingCart.Services
             return total;
         }
 
-        private double CalculateWithoutVouchers(IEnumerable<Product> products)
+        private decimal CalculateWithoutVouchers(IEnumerable<Product> products)
         {
-            return products.Aggregate(0.00, (sum, next) => (double) sum + next.Price);
+            return products.Aggregate(new decimal(0.00), (sum, next) => (decimal) sum + next.Price);
         }
 
-        private double ApplyVoucher(Voucher voucher, double total)
+        private decimal ApplyVoucher(Voucher voucher, decimal total)
         {
             return voucher.DiscountAmount > total || voucher.DiscountPercentage > 100? 
                 0:

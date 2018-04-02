@@ -7,6 +7,6 @@ namespace ShoppingCart.Services.Interfaces
 {
     public interface IOrderService: IService<Order>
     {
-        double GetTotalPriceFor(Order order);
+        decimal GetTotalPriceFor(Order order);
     }
 }

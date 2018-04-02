@@ -7,8 +7,8 @@ namespace ShoppingCart.Models
     {
         public Guid UserId { get; set; }
         
-        public virtual IEnumerable<OrderProduct> OrderProducts { get; set; }
-        
-        public IEnumerable<Guid> VoucherIds { get; set; }
+        public virtual IEnumerable<OrderProduct> Products { get; set; }
+
+        public virtual IEnumerable<Voucher> Vouchers{ get; set; }
     }
 }
