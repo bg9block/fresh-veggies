@@ -15,11 +15,11 @@ import { FaresService } from './services/fares.service';
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: 'bulma',
     component: HomeComponent
   },
   {
-    path: 'fares',
+    path: '',
     component: FaresListComponent
   },
   { path: '**', component: NotFoundComponent }
