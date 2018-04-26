@@ -12,6 +12,8 @@ import { FaresListComponent } from './pages/fares/fares.component';
 
 import { AppService } from './services/app.service';
 import { FaresService } from './services/fares.service';
+import { FareComponent } from './pages/fares/fare.component';
+import { IPFSService } from './services/ipfs.service';
 
 const appRoutes: Routes = [
   {
@@ -20,7 +22,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    component: FaresListComponent
+    component: FareComponent
   },
   { path: '**', component: NotFoundComponent }
 ];
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     FaresListComponent,
+    FareComponent,
     NotFoundComponent
   ],
   imports: [
@@ -44,7 +47,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppService,
-    FaresService
+    FaresService,
+    IPFSService
   ],
   bootstrap: [AppComponent]
 })
