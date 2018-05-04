@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 
-namespace ShoppingCart.API.Tests
+namespace FreshVeg.API.Tests
 {
     public static class TestHelper
     {

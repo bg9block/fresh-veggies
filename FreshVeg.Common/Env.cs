@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Data.Sqlite;
 
-namespace ShoppingCart.Common
+namespace FreshVeg.Common
 {
     public static class Env
     {

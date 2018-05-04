@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ShoppingCart.Data;
-using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
-using ShoppingCart.Models.Enums;
-using ShoppingCart.Services.Interfaces;
+using FreshVeg.Data.Interfaces;
+using FreshVeg.Models;
+using FreshVeg.Models.Enums;
+using FreshVeg.Services.Interfaces;
 
-namespace ShoppingCart.Services
+namespace FreshVeg.Services
 {
     public class OrderService: ServiceBase<Order>, IOrderService
     {

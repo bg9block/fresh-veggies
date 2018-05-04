@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Models.Enums
+﻿namespace FreshVeg.Models.Enums
 {
     public enum ProductCategory
     {

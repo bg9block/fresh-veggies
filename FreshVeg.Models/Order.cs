@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShoppingCart.Models
+namespace FreshVeg.Models
 {
     public class Order: BaseEntity
     {

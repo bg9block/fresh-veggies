@@ -1,7 +1,7 @@
 ﻿using System;
-using ShoppingCart.Models.Enums;
+using FreshVeg.Models.Enums;
 
-namespace ShoppingCart.Models
+namespace FreshVeg.Models
 {
     public class Voucher: BaseEntity
     {

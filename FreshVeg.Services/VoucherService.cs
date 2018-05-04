@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
-using ShoppingCart.Data;
-using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
-using ShoppingCart.Services.Interfaces;
+﻿using FreshVeg.Data.Interfaces;
+using FreshVeg.Models;
+using FreshVeg.Services.Interfaces;
 
-namespace ShoppingCart.Services
+namespace FreshVeg.Services
 {
     public class VoucherService: ServiceBase<Voucher>, IVoucherService
     {

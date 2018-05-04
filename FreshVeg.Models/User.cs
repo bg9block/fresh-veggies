@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ShoppingCart.Models
+﻿namespace FreshVeg.Models
 {
     public class User: BaseEntity
     {

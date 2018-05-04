@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using AutoMapper;
+using FreshVeg.API.Models;
+using FreshVeg.Models;
+using FreshVeg.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using ShoppingCart.API.Models;
-using ShoppingCart.Models;
-using ShoppingCart.Services.Interfaces;
 
-namespace ShoppingCart.API.Controllers
+namespace FreshVeg.API.Controllers
 {
     [Route("api/[controller]")]
     public class CartController : Controller

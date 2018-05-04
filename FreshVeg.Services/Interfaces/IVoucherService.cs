@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using ShoppingCart.Models;
+﻿using FreshVeg.Models;
 
-namespace ShoppingCart.Services.Interfaces
+namespace FreshVeg.Services.Interfaces
 {
     public interface IVoucherService: IService<Voucher>
     {

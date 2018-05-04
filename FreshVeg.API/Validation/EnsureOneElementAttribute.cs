@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingCart.API.Validation
+namespace FreshVeg.API.Validation
 {
     public class EnsureMinimumElementsAttribute : ValidationAttribute
     {

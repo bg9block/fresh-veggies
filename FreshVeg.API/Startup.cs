@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using AutoMapper;
+using FreshVeg.Data;
+using FreshVeg.Data.Context;
+using FreshVeg.Data.Interfaces;
+using FreshVeg.Services;
+using FreshVeg.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ShoppingCart.Data;
-using ShoppingCart.Data.Context;
-using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
-using ShoppingCart.Services;
-using ShoppingCart.Services.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace ShoppingCart.API
+namespace FreshVeg.API
 {
     public class Startup
     {
@@ -27,6 +26,8 @@ namespace ShoppingCart.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration);
+            
             services.AddAutoMapper(new List<Assembly>() {Assembly.GetAssembly(typeof(Startup))});
             
             services.AddScoped(typeof(IProductService), typeof(ProductService));
@@ -48,7 +49,7 @@ namespace ShoppingCart.API
             
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Shopping Cart API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "FreshVeg API", Version = "v1" });
             });
         }
 
@@ -59,7 +60,7 @@ namespace ShoppingCart.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

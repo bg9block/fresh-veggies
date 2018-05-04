@@ -1,11 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+using FreshVeg.Common;
 using Microsoft.AspNetCore.TestHost;
-using ShoppingCart.Common;
 using Xunit;
 
-namespace ShoppingCart.API.Tests.Controllers.CartController
+namespace FreshVeg.API.Tests.Controllers.CartController
 {
     public class SayHello
     {

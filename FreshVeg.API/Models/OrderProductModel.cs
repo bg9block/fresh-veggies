@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingCart.API.Models
+namespace FreshVeg.API.Models
 {
     public class OrderProductModel
     {

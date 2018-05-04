@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FreshVeg.Data.Interfaces;
+using FreshVeg.Models;
 using Microsoft.EntityFrameworkCore;
-using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
 
-namespace ShoppingCart.Data
+namespace FreshVeg.Data
 {   
     public abstract class GenericRepository<TContext, TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity where TContext : DbContext, new() {
 

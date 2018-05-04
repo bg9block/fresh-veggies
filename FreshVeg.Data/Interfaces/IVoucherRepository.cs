@@ -1,6 +1,6 @@
-﻿using ShoppingCart.Models;
+﻿using FreshVeg.Models;
 
-namespace ShoppingCart.Data.Interfaces
+namespace FreshVeg.Data.Interfaces
 {
     public interface IVoucherRepository: IGenericRepository<Voucher>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShoppingCart.Models
+namespace FreshVeg.Models
 {
     public abstract class BaseEntity
     {

@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Data.Context
+﻿namespace FreshVeg.Data.Context
 {
     public class VoucherContext: ShoppingCartContext
     {

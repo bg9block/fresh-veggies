@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ShoppingCart.API.Models;
-using ShoppingCart.Models;
+using FreshVeg.API.Models;
+using FreshVeg.Models;
 
-namespace ShoppingCart.API.Mapping
+namespace FreshVeg.API.Mapping
 {
     public class OrderProductProfile: Profile
     {

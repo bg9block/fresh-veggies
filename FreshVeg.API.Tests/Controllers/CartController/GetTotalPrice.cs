@@ -4,19 +4,16 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Data.Sqlite;
+using FreshVeg.API.Models;
+using FreshVeg.Common;
+using FreshVeg.Data.Context;
+using FreshVeg.Models;
+using FreshVeg.Models.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Newtonsoft.Json;
-using ShoppingCart.API.Models;
-using ShoppingCart.Common;
-using ShoppingCart.Data.Context;
-using ShoppingCart.Models;
-using ShoppingCart.Models.Enums;
 using Xunit;
 
-namespace ShoppingCart.API.Tests.Controllers.CartController
+namespace FreshVeg.API.Tests.Controllers.CartController
 {
     public class GetTotalPrice
     {

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using ShoppingCart.API.Validation;
-using ShoppingCart.Models;
-using ShoppingCart.Models.Enums;
-using ShoppingCart.Services.Interfaces;
+using FreshVeg.API.Validation;
+using FreshVeg.Models;
+using FreshVeg.Models.Enums;
+using FreshVeg.Services.Interfaces;
 
-namespace ShoppingCart.API.Models
+namespace FreshVeg.API.Models
 {
     public class OrderModel: IValidatableObject
     {

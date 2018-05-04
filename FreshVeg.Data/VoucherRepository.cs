@@ -1,9 +1,8 @@
-﻿
-using ShoppingCart.Data.Context;
-using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
+﻿using FreshVeg.Data.Context;
+using FreshVeg.Data.Interfaces;
+using FreshVeg.Models;
 
-namespace ShoppingCart.Data
+namespace FreshVeg.Data
 {
     public class VoucherRepository: GenericRepository<VoucherContext, Voucher>, IVoucherRepository
     {

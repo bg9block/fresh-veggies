@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShoppingCart.Common;
-using ShoppingCart.Models;
+﻿using FreshVeg.Common;
+using FreshVeg.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ShoppingCart.Data.Context
+namespace FreshVeg.Data.Context
 {
     public class ShoppingCartContext: DbContext
     {

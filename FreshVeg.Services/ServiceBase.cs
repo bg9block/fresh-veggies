@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using ShoppingCart.Data;
-using ShoppingCart.Data.Interfaces;
-using ShoppingCart.Models;
-using ShoppingCart.Services.Interfaces;
+using FreshVeg.Data.Interfaces;
+using FreshVeg.Models;
+using FreshVeg.Services.Interfaces;
 
-namespace ShoppingCart.Services
+namespace FreshVeg.Services
 {
     public abstract class ServiceBase<TEntity> : IService<TEntity> 
         where TEntity : BaseEntity 

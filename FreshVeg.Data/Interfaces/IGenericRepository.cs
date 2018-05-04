@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using ShoppingCart.Models;
+using FreshVeg.Models;
 
-namespace ShoppingCart.Data.Interfaces
+namespace FreshVeg.Data.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity: BaseEntity
     {
